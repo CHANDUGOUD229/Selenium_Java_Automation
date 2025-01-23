@@ -12,22 +12,55 @@ public class LoginPage extends GenericMethods {
         PageFactory.initElements(globalDriver(), this);
     }
 
-    @FindBy(id = "Email") WebElement email;
-    @FindBy(id = "Password") WebElement passWord;
-    @FindBy(xpath = "//button[normalize-space()='Log in']") WebElement loginBtn;
+    @FindBy(xpath = "//input[@name='username']") WebElement email;
+    @FindBy(xpath = "//input[@name='password']") WebElement passWord;
+    @FindBy(xpath = "//button[@type='submit']") WebElement loginBtn;
+    @FindBy(xpath = "(//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message'])[1]")
+    WebElement requiredErrMsg1;
+
+    @FindBy(xpath = "(//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message'])[2]")
+    WebElement requiredErrMsg2;
+
+    @FindBy(xpath = "//p[.='Invalid credentials']") WebElement invalidMessage;
 
     public void enterLoginDetails()
     {
         waitForElementTobeEnterText(email,getProperty("username"));
-        assertElementDisplayed(email,email+"Element not Displaying");
+        assertElementDisplayed(email,"Element not Displaying");
         waitForElementTobeEnterText(passWord,getProperty("password"));
-        assertElementDisplayed(passWord,passWord+"Element not Displaying");
+        assertElementDisplayed(passWord,"Element not Displaying");
+
+    }
+    public void validateErrorMessage(){
+        assertEqualsText(requiredErrMsg1,"Required");
+        assertEqualsText(requiredErrMsg2,"Required");
+
+    }
+
+    public void enterInvalidLoginDetails()
+    {
+        waitForElementTobeEnterText(email,getProperty("invalidUsername"));
+        assertElementDisplayed(email,"Element not Displaying");
+        waitForElementTobeEnterText(passWord,getProperty("invalidPassword"));
+        assertElementDisplayed(passWord,"Element not Displaying");
+
+    }
+    public void validateInvalidLogin(String expected){
+        assertEqualsText(invalidMessage,expected);
 
     }
 
     public void clickOnLoginBtn()
     {
         waitForElementTobeClick(loginBtn);
+
+    }
+
+    public  void validateLoginPage(){
+       String actual= getDriver().getTitle();
+       String expected="OrangeHRM";
+       assertEqualsTitles(actual,expected);
+
     }
 
 

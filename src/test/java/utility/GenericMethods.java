@@ -214,14 +214,12 @@ public class GenericMethods extends DriverFactory {
                 if (visibility) {
                     System.out.println(element + " is visible");
                     click(element);
-                    writeLogInfo(element + " user clicked on button");
                     break;
                 } else {
                     System.out.println(element + " is not visible after trying with 60 seconds ");
                 }
             }
         } catch (NoSuchElementException e) {
-            writeLogInfo(element + "Facing Issue While clicking on Element");
             System.err.println(e);
         }
     }
@@ -248,14 +246,14 @@ public class GenericMethods extends DriverFactory {
                 if (visibility) {
                     System.out.println(element + " is visible");
                     enterText(element, text);
-                    writeLogInfo(element + "User Entered the text int to TextBox ");
+
                     break;
                 } else {
                     System.out.println(element + " is not visible after trying with 60 seconds ");
                 }
             }
         } catch (NoSuchElementException e) {
-            writeLogInfo("Facing issue While Entering Text in TextBox :  " + element);
+
             System.err.println(e);
         }
     }
@@ -331,12 +329,11 @@ public class GenericMethods extends DriverFactory {
         try {
             if (!element.isSelected()) {
                 element.click();
-                writeLogInfo("User Selected unselected checkbox  :  " + element);
+
             } else {
                 System.out.println(element + " is already selected");
             }
         } catch (Exception e) {
-            writeLogInfo("facing issue while Selecting Checkbox  :  " + element);
             System.out.println(e);
         }
     }
@@ -379,15 +376,16 @@ public class GenericMethods extends DriverFactory {
         element.sendKeys(text);
     }
 
+
     /**
-     * It will perform the asertEquals
+     * It will perform the assertEquals
      *
      * @param element
-     * @param actual
      * @param Expected
      */
-    public static void asertEquals(WebElement element, String actual, String Expected) {
+    public static void assertEqualsText(WebElement element, String Expected) {
         try {
+            String actual=element.getText();
             if (!actual.isEmpty() && !Expected.isEmpty()) {
                 assrtHighlight(element);
                 Assert.assertEquals(actual, Expected);
@@ -400,20 +398,11 @@ public class GenericMethods extends DriverFactory {
         }
     }
 
-    /**
-     * Assert Not equals it will compare expected and actual strings
-     *
-     * @param element
-     * @param actual
-     * @param Expected
-     */
-
-    public static void asertNotEquals(WebElement element, String actual, String Expected) {
+    public static void assertEqualsTitles( String actual, String Expected) {
         try {
             if (!actual.isEmpty() && !Expected.isEmpty()) {
-                assrtHighlight(element);
-                Assert.assertNotEquals(actual, Expected);
-                System.out.println("Given " + actual + "and " + Expected + "both are Not same");
+                Assert.assertEquals(actual, Expected);
+                System.out.println("Given " + actual + "and " + Expected + "both are same");
             } else {
 
             }
@@ -421,6 +410,10 @@ public class GenericMethods extends DriverFactory {
 
         }
     }
+
+
+
+
 
     // Generic method to assert that a condition is true
     public void assertTrue(boolean condition, String message) {
@@ -838,7 +831,7 @@ public class GenericMethods extends DriverFactory {
     public String getUrl() {
         PropertyFilesLoader pf = new PropertyFilesLoader();
         if (pf.getProperty("Environment").equalsIgnoreCase("sit")) {
-            UrlMap.put("url", "https://admin-demo.nopcommerce.com/login?ReturnUrl=%2Fadmin%2F");
+            UrlMap.put("url", "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         } else if (pf.getProperty("Environment").equalsIgnoreCase("AUT")) {
             UrlMap.put("url", "https://www.google.com");
         } else if (pf.getProperty("Environment").equalsIgnoreCase("UAT")) {

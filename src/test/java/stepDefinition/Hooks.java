@@ -55,10 +55,10 @@ public class Hooks extends DriverFactory {
                 scenario.attach(screenshot, "image/png", scenario.getName());
                 gm.writeLoginfo("Successfully Captured screenShot for Failed scenario" + scenario.getName());
             }
-        } catch (Exception pasha) {
+        } catch (Exception e) {
 
-            gm.writeLoginfo("Facing issue Capturing ScreenShot : " + pasha);
-            System.err.println("Facing issue while capturing ScreenShot : " + pasha);
+            gm.writeLoginfo("Facing issue Capturing ScreenShot : " + e);
+            System.err.println("Facing issue while capturing ScreenShot : " + e);
         }
         getDriver().quit();
     }
